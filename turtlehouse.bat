@@ -1,7 +1,6 @@
 @echo off
 if not exist "%appdata%\TurtleHouse" rm "%appdata%\TurtleHouse"
-if exist "%username\Desktop\Debug.txt" goto debug
-:debug
+if not exist "%username\Desktop\Debug.txt" goto nodebug
 title TurtleHouse Secret Debug
 set debug=1
 echo                 _______         _   _      _    _                      
@@ -33,18 +32,19 @@ echo                                      2: Switch House
 echo                                    3: Connect to Online
 echo                                          4: About
 echo                                          5: Leave
-CHOICE /C 12345 /M "Go where?:"
+CHOICE /C 12345 /M "Choose an option:"
 
 :: Settings
-IF ERRORLEVEL 5 GOTO SwitchUser
+IF ERRORLEVEL 5 GOTO Leave
 IF ERRORLEVEL 4 GOTO Logoff
 IF ERRORLEVEL 3 GOTO CloseAllWindows
 IF ERRORLEVEL 2 GOTO Shutdown
 IF ERRORLEVEL 1 GOTO Restart
 
-:Restart
-ECHO Restart (put your restart code here)
-GOTO End
+:LoadHouse
+ECHO Loading the house...
+open 
+
 
 :Shutdown
 ECHO Shutdown (put your shutdown code here)
@@ -62,4 +62,9 @@ GOTO End
 ECHO Switch User (put your switch user code here)
 GOTO End
 
-:End
+:Leave
+title Exiting program...
+echo Bye!
+set debug=0
+if exist "%username%\Desktop\Debug.txt" del "%username%\Desktop\Debug.txt"
+exit

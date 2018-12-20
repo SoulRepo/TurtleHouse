@@ -3,8 +3,11 @@ set test=1
 set version=Version 0.1
 if not exist "%appdata%\Roaming\TurtleHouse" mkdir "%appdata%\Roaming\TurtleHouse"
 if not exist "%username\Desktop\Debug.txt" goto setup
+if exist "%username\Desktop\Debug.txt" goto debug
 :setup
 set FilesHostedOn=https://raw.githubusercontent.com/KcrPL/KcrPL.github.io/master/Patchers_Auto_Update/WiiWare-Patcher
+goto nodebug
+:debug
 title TurtleHouse Sound Test %version%
 set test=1
 echo.
